@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import { Header } from './Header/Header';
 import { TeasList } from './TeasList/TeasList';
 import { TeaPage } from './TeaPage/TeaPage';
+import { AddTea } from './AddTea/AddTea';
 
 import { Tea } from './types/Tea';
 
@@ -43,6 +44,12 @@ const App = () => {
       <Header />
 
       <Switch>
+
+        <Route exact path='/tea/add'
+          render={
+            (props) => <AddTea />
+          }
+        />
 
         <Route path='/tea/:id'
           render={

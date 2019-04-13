@@ -5,6 +5,7 @@ import { teaPageName, teaPageBrand, teaPageNameWrapper, teaPageTemperature } fro
 import { Timer } from '../Timer/Timer';
 
 import { Tea } from '../types/Tea';
+import { AddTeaButton } from 'src/AddTea/AddTeaButton';
 
 type TeaPageProps = {
   tea: Tea;
@@ -24,6 +25,8 @@ export const TeaPage: FunctionComponent<TeaPageProps> = ({ tea }) => {
       <div style={teaPageTemperature}>{ temperature }<sup>°c</sup></div>
 
       <Timer time={moment.duration(time)} />
+
+      <AddTeaButton />
 
     </div>
 
