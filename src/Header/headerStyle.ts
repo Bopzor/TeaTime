@@ -13,15 +13,13 @@ export const headerStyle: CSSProperties = {
   top: '0px',
 };
 
+export const titleHiddenStyle: CSSProperties = {
+  display: 'none',
+}
+
 export const titleStyle: CSSProperties = {
   fontFamily: 'Sedgwick Ave Display',
   fontSize: '2.3em',
   fontWeight: 'normal',
   color: '#211a1e',
-};
-
-export const searchIconStyle: CSSProperties = {
-  padding: '5px 6px',
-  cursor: 'pointer',
-  color: '#999',
 };
