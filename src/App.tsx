@@ -14,7 +14,7 @@ const App = () => {
     const fetchedTeas = localStorage.getItem('teas');
 
     setTeas(parsedTeas(fetchedTeas));
-  });
+  }, []);
 
   const parsedTeas = (fetchedTeas: string | null) => {
     if (!fetchedTeas)
