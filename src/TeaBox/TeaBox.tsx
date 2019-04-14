@@ -28,7 +28,7 @@ export const TeaBox: FunctionComponent<TeaBoxProps> = ({ tea }) => {
         <h2 style={teaBoxName}>{ name }</h2>
         <div style={teaBoxBrand}>{ brand }</div>
         <div style={preparationInfosWrapper}>
-          <div style={preparationInfos}>{ temperature }<sup>°C</sup></div>
+          <div style={preparationInfos}>{ temperature }°C</div>
           <div style={separator} />
           <div style={preparationInfos}>{ formatSecondsToMinutesAndSeconds(moment.duration(time).asSeconds()) }</div>
         </div>

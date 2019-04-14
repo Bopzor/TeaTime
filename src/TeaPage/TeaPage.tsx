@@ -26,7 +26,7 @@ export const TeaPage: FunctionComponent<TeaPageProps> = ({ tea, location }) => {
         <div style={teaPageBrand}>{ brand }</div>
       </div>
 
-      <div style={teaPageTemperature}>{ temperature }<sup>°c</sup></div>
+      <div style={teaPageTemperature}>{ temperature }°C</div>
 
       <Timer time={moment.duration(time)} />
 
