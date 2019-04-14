@@ -1,5 +1,6 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Location } from 'history';
 
 import { SearchBar } from '../SearchBar/SearchBar';
 import {
@@ -9,8 +10,16 @@ import {
 
 } from './headerStyle';
 
-export const Header: FunctionComponent = () => {
+type HeaderProps = {
+  location: Location<any>;
+}
+
+export const Header: FunctionComponent<HeaderProps> = () => {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [location]);
 
   return (
   <header style={headerStyle}>

@@ -1,6 +1,8 @@
 import React, { FunctionComponent, useState, FormEvent } from 'react';
 import slugify from 'slugify';
 
+import { Location } from 'history';
+
 import {
   wrapperStyle,
   inputWrapperStyle,
@@ -16,10 +18,11 @@ import { Header } from 'src/Header/Header';
 import { Tea } from 'src/types/Tea';
 
 type AddTeaProps = {
+  location: Location<any>;
   handleAddTea: (tea: Tea) => void;
 }
 
-export const AddTea: FunctionComponent<AddTeaProps> = ({ handleAddTea }) => {
+export const AddTea: FunctionComponent<AddTeaProps> = ({ location, handleAddTea }) => {
   const [name, setName] = useState('');
   const [brand, setBrand] = useState('');
   const [temperature, setTemperature] = useState('');
@@ -45,7 +48,7 @@ export const AddTea: FunctionComponent<AddTeaProps> = ({ handleAddTea }) => {
 
   return (
     <div style={{height: '100%'}}>
-      <Header />
+      <Header location={location} />
 
       <div style={wrapperStyle}>
 

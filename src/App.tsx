@@ -40,19 +40,19 @@ const App = () => {
       <Switch>
         <Route exact path='/tea/add'
           render={
-            (props) => <AddTea handleAddTea={(tea: Tea) => addTeaToLocalStorage(tea)} />
+            (props) => <AddTea location={props.location} handleAddTea={(tea: Tea) => addTeaToLocalStorage(tea)} />
           }
         />
 
         <Route path='/tea/:id'
           render={
-            (props) => <TeaPage tea={findTea(props.match.params.id)} />
+            (props) => <TeaPage tea={findTea(props.match.params.id)} location={props.location} />
           }
         />
 
         <Route path='/'
           render={
-            (props) => <TeasList teas={teas} />
+            (props) => <TeasList teas={teas} location={props.location} />
           }
         />
 

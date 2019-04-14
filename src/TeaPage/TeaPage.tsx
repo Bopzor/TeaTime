@@ -6,16 +6,20 @@ import { Timer } from '../Timer/Timer';
 
 import { Tea } from '../types/Tea';
 import { AddTeaButton } from 'src/AddTea/AddTeaButton';
+import { Location } from 'history';
+import { Header } from 'src/Header/Header';
 
 type TeaPageProps = {
   tea: Tea;
+  location: Location<any>;
 };
 
-export const TeaPage: FunctionComponent<TeaPageProps> = ({ tea }) => {
+export const TeaPage: FunctionComponent<TeaPageProps> = ({ tea, location }) => {
   const { name, brand, temperature, time, id } = tea;
 
   return (
     <div>
+      <Header location={location} />
 
       <div style={teaPageNameWrapper}>
         <h2 style={teaPageName}>{ name }</h2>
