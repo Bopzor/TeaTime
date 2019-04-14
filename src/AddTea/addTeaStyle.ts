@@ -13,6 +13,11 @@ export const inputWrapperStyle: CSSProperties = {
   marginBottom: '20px',
 }
 
+export const formStyle: CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
+}
+
 export const inputStyle: CSSProperties = {
   padding: '5px',
   borderRadius: '3px',

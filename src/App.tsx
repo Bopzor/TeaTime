@@ -1,53 +1,46 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import { Header } from './Header/Header';
 import { TeasList } from './TeasList/TeasList';
 import { TeaPage } from './TeaPage/TeaPage';
 import { AddTea } from './AddTea/AddTea';
 
 import { Tea } from './types/Tea';
 
-const teas: Tea[] = [
-  {
-    id: 'BlueDetox-KusmiTea',
-    name: 'Blue Detox',
-    brand: 'Kusmi Tea',
-    temperature: 90,
-    time: {
-      minutes: 3,
-      seconds: 30,
-    },
-    count: 0,
-  },
-  {
-    id: 'BoucheEnCoeur-LAirDuThe',
-    name: 'Bouche en Coeur',
-    brand: 'L\'Air du thé',
-    temperature: 80,
-    time: {
-      minutes: 3,
-      seconds: 0,
-    },
-    count: 0,
-  },
-];
-
 const App = () => {
+  const [teas, setTeas] = useState<Tea[]>([]);
+
+  useEffect(() => {
+    const fetchedTeas = localStorage.getItem('teas');
+
+    setTeas(parsedTeas(fetchedTeas));
+  });
+
+  const parsedTeas = (fetchedTeas: string | null) => {
+    if (!fetchedTeas)
+      return [];
+
+    return JSON.parse(fetchedTeas);
+  };
+
   const findTea = (id: string): Tea => {
     const tea = teas.filter(t => t.id === id);
     return tea[0];
   };
 
+  const addTeaToLocalStorage = (tea: Tea) => {
+    const updatedTeas: Tea[] = [ ...teas, tea ];
+
+    localStorage.setItem('teas', JSON.stringify(updatedTeas));
+  }
+
   return (
     <div className='App'>
-      <Header />
 
       <Switch>
-
         <Route exact path='/tea/add'
           render={
-            (props) => <AddTea />
+            (props) => <AddTea handleAddTea={(tea: Tea) => addTeaToLocalStorage(tea)} />
           }
         />
 
