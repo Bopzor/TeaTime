@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Location } from 'history';
 
 import { SearchBar } from '../SearchBar/SearchBar';
@@ -14,7 +14,7 @@ type HeaderProps = {
   location: Location<any>;
 }
 
-export const Header: FunctionComponent<HeaderProps> = () => {
+const Header: FunctionComponent<HeaderProps> = ({ location }) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -31,3 +31,5 @@ export const Header: FunctionComponent<HeaderProps> = () => {
   </header>
   );
 };
+
+export const HeaderWithRouter = withRouter(Header);

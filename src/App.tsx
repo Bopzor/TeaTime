@@ -6,6 +6,7 @@ import { TeaPage } from './TeaPage/TeaPage';
 import { AddTea } from './AddTea/AddTea';
 
 import { Tea } from './types/Tea';
+import { HeaderWithRouter } from './Header/Header';
 
 const App = () => {
   const [teas, setTeas] = useState<Tea[]>([]);
@@ -37,22 +38,24 @@ const App = () => {
   return (
     <div className='App'>
 
+     <HeaderWithRouter />
+
       <Switch>
         <Route exact path='/tea/add'
           render={
-            (props) => <AddTea location={props.location} handleAddTea={(tea: Tea) => addTeaToLocalStorage(tea)} />
+            (props) => <AddTea handleAddTea={(tea: Tea) => addTeaToLocalStorage(tea)} />
           }
         />
 
         <Route path='/tea/:id'
           render={
-            (props) => <TeaPage tea={findTea(props.match.params.id)} location={props.location} />
+            (props) => <TeaPage tea={findTea(props.match.params.id)} />
           }
         />
 
         <Route path='/'
           render={
-            (props) => <TeasList teas={teas} location={props.location} />
+            (props) => <TeasList teas={teas} />
           }
         />
 
