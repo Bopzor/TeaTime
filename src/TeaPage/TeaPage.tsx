@@ -14,9 +14,10 @@ import { Tea } from '../types/Tea';
 
 type TeaPageProps = {
   tea: Tea;
+  incrementTeaCount: (tea: Tea) => void;
 };
 
-export const TeaPage: FunctionComponent<TeaPageProps> = ({ tea }) => {
+export const TeaPage: FunctionComponent<TeaPageProps> = ({ tea, incrementTeaCount }) => {
   const [currentTea, setCurrentTea] = useState<Tea | null>(tea);
 
   useEffect(() => {
@@ -46,7 +47,7 @@ export const TeaPage: FunctionComponent<TeaPageProps> = ({ tea }) => {
 
       <div style={teaPageTemperature}>{ currentTea.temperature }°C</div>
 
-      <Timer time={moment.duration(currentTea.time)} />
+      <Timer time={moment.duration(currentTea.time)} incrementTeaCount={() => incrementTeaCount(currentTea)} />
 
     </div>
 

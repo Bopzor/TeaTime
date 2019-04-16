@@ -5,6 +5,7 @@ import { timeStyle, timerWrapper, controlStyle } from './timerStyle';
 
 type TimerProps = {
   time: moment.Duration,
+  incrementTeaCount: () => void;
 };
 
 const useTimer = (initialTime: number) => {
@@ -28,7 +29,7 @@ const useTimer = (initialTime: number) => {
 
 };
 
-export const Timer: FunctionComponent<TimerProps> = ({ time }) => {
+export const Timer: FunctionComponent<TimerProps> = ({ time, incrementTeaCount }) => {
   const [started, setStarted] = useState(false);
   const [alarm, setAlarm] = useState(false);
   const { time: currentTime, toggle: toggleTimer } = useTimer(time.asSeconds());
@@ -37,10 +38,14 @@ export const Timer: FunctionComponent<TimerProps> = ({ time }) => {
     if (started && currentTime <= 0) {
       setAlarm(true);
       setStarted(false);
+      incrementTeaCount();
     }
   }, [currentTime])
 
   const handleToggle = () => {
+    if (currentTime <= 0)
+      return;
+
     toggleTimer();
     setStarted(!started);
   }

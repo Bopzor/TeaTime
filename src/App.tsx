@@ -17,8 +17,9 @@ const App = () => {
 
   useEffect(() => {
     const fetchedTeas = localStorage.getItem('teas');
+    const teasSorted = parsedTeas(fetchedTeas).sort((a: Tea, b: Tea) => b.count - a.count);
 
-    setTeas(parsedTeas(fetchedTeas));
+    setTeas(teasSorted);
   }, []);
 
   const parsedTeas = (fetchedTeas: string | null) => {
@@ -29,6 +30,7 @@ const App = () => {
 
   const findTea = (id: string): Tea => {
     const tea = teas.filter(t => t.id === id);
+
     return tea[0];
   };
 
@@ -37,7 +39,19 @@ const App = () => {
 
     localStorage.setItem('teas', JSON.stringify(updatedTeas));
 
-    setTeas(updatedTeas);
+    setTeas(updatedTeas.sort((a: Tea, b: Tea) => b.count - a.count));
+  };
+
+  const incrementTeaCount = (tea: Tea) => {
+    const idx = teas.findIndex(t => t.id === tea.id);
+    const updatedTeas = [
+      ...teas.slice(0, idx),
+      { ...tea, count: ++tea.count },
+      ...teas.slice(idx + 1),
+    ];
+
+    setTeas(updatedTeas.sort((a: Tea, b: Tea) => b.count - a.count));
+    localStorage.setItem('teas', JSON.stringify(updatedTeas));
   }
 
   const searchQuery = (query: string) => {
@@ -55,7 +69,7 @@ const App = () => {
     }
 
     setQueryResults(results);
-  }
+  };
 
   if (queryResults.length > 0) {
     return (
@@ -84,7 +98,10 @@ const App = () => {
 
         <Route path='/tea/:id'
           render={
-            (props) => <TeaPage tea={findTea(props.match.params.id)} />
+            (props) => <TeaPage
+              tea={findTea(props.match.params.id)}
+              incrementTeaCount={(tea) => incrementTeaCount(tea)}
+            />
           }
         />
 
