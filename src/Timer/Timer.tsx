@@ -55,7 +55,10 @@ export const Timer: FunctionComponent<TimerProps> = ({ time, incrementTeaCount }
       <div style={timeStyle}>{ formatSecondsToMinutesAndSeconds(currentTime) }</div>
 
       <div style={controlStyle} onClick={handleToggle}>
-        <i className={started ? "fas fa-pause fa-3x" : "fas fa-play fa-3x"} />
+        <i
+          className={started ? "fas fa-pause fa-3x" : "fas fa-play fa-3x"}
+          style={currentTime <= 0 ? { color: '#ccc', cursor: 'initial' } : { cursor: 'pointer' }}
+        />
       </div>
 
       { alarm &&
