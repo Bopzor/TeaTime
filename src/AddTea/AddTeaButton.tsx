@@ -1,8 +1,20 @@
 import React, { FunctionComponent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter, match } from 'react-router-dom';
+import { Location, History } from 'history';
+
 import { addButtonTeaStyle } from './addTeaStyle';
 
-export const AddTeaButton: FunctionComponent = () => {
+type AddTeaButtonProps = {
+  location: Location<any>;
+  history: History;
+  match: match;
+}
+
+const AddTeaButton: FunctionComponent<AddTeaButtonProps> = ({ location }) => {
+  if (location.pathname === '/tea/add') {
+    return null;
+  }
+
   return (
 
     <div style={addButtonTeaStyle}>
@@ -12,3 +24,5 @@ export const AddTeaButton: FunctionComponent = () => {
     </div>
   );
 }
+
+export const AddTeaButtonWithRouter = withRouter(AddTeaButton);

@@ -6,4 +6,5 @@ export const teasListStyle: CSSProperties = {
   flexWrap: 'wrap',
   justifyContent: 'space-evenly',
   overflow: 'auto',
+  flex: 1,
 };

@@ -8,6 +8,9 @@ import { AddTea } from './AddTea/AddTea';
 import { Tea } from './types/Tea';
 import { HeaderWithRouter } from './Header/Header';
 
+import { appStyle } from './appStyle';
+import { AddTeaButtonWithRouter } from './AddTea/AddTeaButton';
+
 const App = () => {
   const [teas, setTeas] = useState<Tea[]>([]);
   const [queryResults, setQueryResults] = useState<Tea[]>([]);
@@ -62,12 +65,13 @@ const App = () => {
 
         <TeasList teas={queryResults} />
 
+        <AddTeaButtonWithRouter />
       </div>
     );
   }
 
   return (
-    <div className='App'>
+    <div style={appStyle}>
 
      <HeaderWithRouter searchQuery={(query) => searchQuery(query)} />
 
@@ -91,6 +95,8 @@ const App = () => {
         />
 
       </Switch>
+
+      <AddTeaButtonWithRouter />
 
     </div>
   );
