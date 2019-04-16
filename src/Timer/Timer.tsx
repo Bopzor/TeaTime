@@ -12,7 +12,7 @@ const useTimer = (initialTime: number) => {
   const [started, setStarted] = useState(false);
 
   useEffect((): any => {
-    if (started) {
+    if (started && time > 0) {
       const id = setTimeout(() => {
         setTime(time - 1);
       }, 1000);
@@ -25,11 +25,20 @@ const useTimer = (initialTime: number) => {
     time,
     toggle: () => setStarted(!started),
   };
+
 };
 
 export const Timer: FunctionComponent<TimerProps> = ({ time }) => {
   const [started, setStarted] = useState(false);
+  const [alarm, setAlarm] = useState(false);
   const { time: currentTime, toggle: toggleTimer } = useTimer(time.asSeconds());
+
+  useEffect(() => {
+    if (started && currentTime <= 0) {
+      setAlarm(true);
+      setStarted(false);
+    }
+  }, [currentTime])
 
   const handleToggle = () => {
     toggleTimer();
@@ -43,6 +52,12 @@ export const Timer: FunctionComponent<TimerProps> = ({ time }) => {
       <div style={controlStyle} onClick={handleToggle}>
         <i className={started ? "fas fa-pause fa-3x" : "fas fa-play fa-3x"} />
       </div>
+
+      { alarm &&
+        <audio src="/ding.m4a" autoPlay={true}>
+          Your browser does not support the <code>audio</code> element.
+        </audio>
+      }
     </div>
   );
 }
