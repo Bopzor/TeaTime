@@ -13,6 +13,7 @@ import {
   formStyle,
 } from './addTeaStyle';
 import { Tea } from 'src/types/Tea';
+import { Redirect } from 'react-router';
 
 type AddTeaProps = {
   handleAddTea: (tea: Tea) => void;
@@ -23,6 +24,7 @@ export const AddTea: FunctionComponent<AddTeaProps> = ({ handleAddTea }) => {
   const [brand, setBrand] = useState('');
   const [temperature, setTemperature] = useState('');
   const [time, setTime] = useState<{ minutes: string, seconds: string }>({ minutes: '', seconds: '' });
+  const [redirectPath, setRedirectPath] = useState<string | null>(null);
 
   const addTea = (event: FormEvent) => {
     event.preventDefault();
@@ -40,7 +42,13 @@ export const AddTea: FunctionComponent<AddTeaProps> = ({ handleAddTea }) => {
     }
 
     handleAddTea(tea);
+
+    setRedirectPath(`/tea/${tea.id}`);
   };
+
+  if (redirectPath !== null) {
+    return <Redirect to={redirectPath} />
+  }
 
   return (
     <div style={{height: '100%'}}>
