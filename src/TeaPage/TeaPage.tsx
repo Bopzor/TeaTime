@@ -18,36 +18,18 @@ type TeaPageProps = {
 };
 
 export const TeaPage: FunctionComponent<TeaPageProps> = ({ tea, incrementTeaCount }) => {
-  const [currentTea, setCurrentTea] = useState<Tea | null>(tea);
-
-  useEffect(() => {
-    if (!currentTea) {
-      const fetchedTea = localStorage.getItem('current-tea');
-      setCurrentTea(parsedTea(fetchedTea));
-    } else {
-      localStorage.setItem('current-tea', JSON.stringify(tea));
-    }
-  }, [currentTea]);
-
-  const parsedTea = (fetchedTea: string | null) => {
-    if (!fetchedTea)
-      return null;
-    return JSON.parse(fetchedTea);
-  };
-
-  if (!currentTea)
-    return null;
+  const { name, brand, temperature, time } = tea;
 
   return (
     <div style={teaPageWrapper}>
       <div style={teaPageNameWrapper}>
-        <h2 style={teaPageName}>{ currentTea.name }</h2>
-        <div style={teaPageBrand}>{ currentTea.brand }</div>
+        <h2 style={teaPageName}>{ name }</h2>
+        <div style={teaPageBrand}>{ brand }</div>
       </div>
 
-      <div style={teaPageTemperature}>{ currentTea.temperature }°C</div>
+      <div style={teaPageTemperature}>{ temperature }°C</div>
 
-      <Timer time={moment.duration(currentTea.time)} incrementTeaCount={() => incrementTeaCount(currentTea)} />
+      <Timer time={moment.duration(time)} incrementTeaCount={() => incrementTeaCount(tea)} />
 
     </div>
 

@@ -84,6 +84,9 @@ const App = () => {
     );
   }
 
+  if (teas.length <= 0)
+    return null;
+
   return (
     <div style={appStyle}>
 
