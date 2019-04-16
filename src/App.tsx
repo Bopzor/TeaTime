@@ -10,6 +10,7 @@ import { HeaderWithRouter } from './Header/Header';
 
 const App = () => {
   const [teas, setTeas] = useState<Tea[]>([]);
+  const [queryResults, setQueryResults] = useState<Tea[]>([]);
 
   useEffect(() => {
     const fetchedTeas = localStorage.getItem('teas');
@@ -20,7 +21,6 @@ const App = () => {
   const parsedTeas = (fetchedTeas: string | null) => {
     if (!fetchedTeas)
       return [];
-
     return JSON.parse(fetchedTeas);
   };
 
@@ -33,12 +33,43 @@ const App = () => {
     const updatedTeas: Tea[] = [ ...teas, tea ];
 
     localStorage.setItem('teas', JSON.stringify(updatedTeas));
+
+    setTeas(updatedTeas);
+  }
+
+  const searchQuery = (query: string) => {
+    if (query.length < 3) {
+      setQueryResults([]);
+      return;
+    }
+
+    const results: Tea[] = [];
+    const regexp = new RegExp(query, 'gi');
+
+    for (let i = 0; i < teas.length; i++) {
+      if (teas[i].name.match(regexp) || teas[i].brand.match(regexp))
+        results.push(teas[i]);
+    }
+
+    setQueryResults(results);
+  }
+
+  if (queryResults.length > 0) {
+    return (
+      <div className='App'>
+
+        <HeaderWithRouter searchQuery={(query) => searchQuery(query)} />
+
+        <TeasList teas={queryResults} />
+
+      </div>
+    );
   }
 
   return (
     <div className='App'>
 
-     <HeaderWithRouter />
+     <HeaderWithRouter searchQuery={(query) => searchQuery(query)} />
 
       <Switch>
         <Route exact path='/tea/add'
@@ -60,6 +91,7 @@ const App = () => {
         />
 
       </Switch>
+
     </div>
   );
 }
