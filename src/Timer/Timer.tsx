@@ -25,6 +25,10 @@ const useTimer = (initialTime: number) => {
   return {
     time,
     toggle: () => setStarted(!started),
+    reset: () => {
+      setTime(initialTime);
+      setStarted(false);
+    },
   };
 
 };
@@ -32,14 +36,16 @@ const useTimer = (initialTime: number) => {
 export const Timer: FunctionComponent<TimerProps> = ({ time, incrementTeaCount }) => {
   const [started, setStarted] = useState(false);
   const [alarm, setAlarm] = useState(false);
-  const { time: currentTime, toggle: toggleTimer } = useTimer(time.asSeconds());
+  const { time: currentTime, toggle: toggleTimer, reset: resetTimer } = useTimer(time.asSeconds());
 
   useEffect(() => {
     if (started && currentTime <= 0) {
       setAlarm(true);
       setStarted(false);
       incrementTeaCount();
-    }
+
+    } else
+      setAlarm(false);
   }, [currentTime])
 
   const handleToggle = () => {
@@ -48,18 +54,24 @@ export const Timer: FunctionComponent<TimerProps> = ({ time, incrementTeaCount }
 
     toggleTimer();
     setStarted(!started);
-  }
+  };
 
   return (
     <div style={timerWrapper}>
       <div style={timeStyle}>{ formatSecondsToMinutesAndSeconds(currentTime) }</div>
 
-      <div style={controlStyle} onClick={handleToggle}>
-        <i
-          className={started ? "fas fa-pause fa-3x" : "fas fa-play fa-3x"}
-          style={currentTime <= 0 ? { color: '#ccc', cursor: 'initial' } : { cursor: 'pointer' }}
-        />
-      </div>
+      { currentTime > 0
+        ? (
+          <div style={controlStyle} onClick={handleToggle}>
+            <i className={started ? "fas fa-pause fa-3x" : "fas fa-play fa-3x"} />
+          </div>
+        )
+        : (
+          <div style={controlStyle} onClick={resetTimer}>
+            <i className="fas fa-redo fa-3x" />
+          </div>
+        )
+      }
 
       { alarm &&
         <audio src="/ding.m4a" autoPlay={true}>
