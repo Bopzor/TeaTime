@@ -18,8 +18,7 @@ export const titleHiddenStyle: CSSProperties = {
 }
 
 export const titleStyle: CSSProperties = {
-  fontFamily: 'Sedgwick Ave Display',
+  fontFamily: 'Sedgwick Ave Display, serif',
   fontSize: '2.3em',
-  fontWeight: 'normal',
   color: '#211a1e',
 };
