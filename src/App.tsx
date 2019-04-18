@@ -11,6 +11,11 @@ import { HeaderWithRouter } from './Header/Header';
 import { appStyle } from './appStyle';
 import { AddTeaButtonWithRouter } from './AddTea/AddTeaButton';
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faPlus, faRedo, faSearch, faPlay, faPause, faTimes } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faPlus, faRedo, faSearch, faPlay, faPause, faTimes);
+
 const App = () => {
   const [teas, setTeas] = useState<Tea[]>([]);
   const [queryResults, setQueryResults] = useState<Tea[]>([]);
@@ -84,9 +89,6 @@ const App = () => {
     );
   }
 
-  if (teas.length <= 0)
-    return null;
-
   return (
     <div style={appStyle}>
 
@@ -99,20 +101,17 @@ const App = () => {
           }
         />
 
-        <Route path='/tea/:id'
-          render={
-            (props) => <TeaPage
-              tea={findTea(props.match.params.id)}
-              incrementTeaCount={(tea) => incrementTeaCount(tea)}
-            />
-          }
-        />
+        { teas.length > 0 &&
+          <Route path='/tea/:id'
+            render={
+              (props) => <TeaPage
+                tea={findTea(props.match.params.id)}
+                incrementTeaCount={(tea) => incrementTeaCount(tea)}
+              />
+            }
+        /> }
 
-        <Route path='/'
-          render={
-            (props) => <TeasList teas={teas} />
-          }
-        />
+        { teas.length > 0 && <Route path='/' render={(props) => <TeasList teas={teas} />} /> }
 
       </Switch>
 

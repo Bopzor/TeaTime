@@ -2,6 +2,8 @@ import React, { FunctionComponent } from 'react';
 import { Link, withRouter, match } from 'react-router-dom';
 import { Location, History } from 'history';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { addButtonTeaStyle } from './addTeaStyle';
 
 type AddTeaButtonProps = {
@@ -18,8 +20,8 @@ const AddTeaButton: FunctionComponent<AddTeaButtonProps> = ({ location }) => {
   return (
 
     <div style={addButtonTeaStyle}>
-      <Link to="/tea/add">
-        <i className="fas fa-plus fa-2x" />
+      <Link to="/tea/add" aria-label="Add a new tea">
+        <FontAwesomeIcon icon="plus" size="2x" />
       </Link>
     </div>
   );

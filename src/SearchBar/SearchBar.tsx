@@ -1,5 +1,7 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import {
   searchIconStyle,
   searchInputHiddenStyle,
@@ -30,7 +32,7 @@ export const SearchBar: FunctionComponent<SearchBarProps> = ({ open, setOpen, se
     <div style={open ? { width: '100%' } : {}}>
 
       <div style={open ? searchIconOpenStyle : searchIconStyle} onClick={() => setOpen(true)}>
-        <i className="fas fa-search fa-2x" />
+        <FontAwesomeIcon icon="search" size="2x" />
       </div>
 
       <input
@@ -45,7 +47,8 @@ export const SearchBar: FunctionComponent<SearchBarProps> = ({ open, setOpen, se
         style={open ? closeSearchBarOpenStyle : closeIconStyle}
         onClick={() => setOpen(false)}
       >
-        <i className="fas fa-times" />
+        <FontAwesomeIcon icon="times" />
+
       </div>
 
     </div>

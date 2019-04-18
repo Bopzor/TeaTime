@@ -2,6 +2,7 @@ import React, { FunctionComponent, useState, useEffect } from 'react';
 import moment from 'moment';
 import { formatSecondsToMinutesAndSeconds } from 'src/utils';
 import { timeStyle, timerWrapper, controlStyle } from './timerStyle';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 type TimerProps = {
   time: moment.Duration,
@@ -63,12 +64,15 @@ export const Timer: FunctionComponent<TimerProps> = ({ time, incrementTeaCount }
       { currentTime > 0
         ? (
           <div style={controlStyle} onClick={handleToggle}>
-            <i className={started ? "fas fa-pause fa-3x" : "fas fa-play fa-3x"} />
+            { started
+              ? <FontAwesomeIcon icon="pause" size="3x" />
+              : <FontAwesomeIcon icon="play" size="3x" />
+            }
           </div>
         )
         : (
           <div style={controlStyle} onClick={resetTimer}>
-            <i className="fas fa-redo fa-3x" />
+            <FontAwesomeIcon icon="redo" size="3x" />
           </div>
         )
       }
