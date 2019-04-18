@@ -26,8 +26,8 @@ const Header: FunctionComponent<HeaderProps> = ({ location, searchQuery }) => {
 
   return (
   <header style={headerStyle}>
-    <Link to='/'>
-      <h1 style={open ? titleHiddenStyle : titleStyle}>Tea Time</h1>
+    <Link to='/' aria-label="Teas list">
+      <h1 style={open ? titleHiddenStyle : titleStyle}>Thé Prêt ?</h1>
     </Link>
 
     <SearchBar open={open} setOpen={setOpen} searchQuery={(query) => searchQuery(query)} />

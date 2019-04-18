@@ -23,7 +23,7 @@ type TeaBoxProps = {
 export const TeaBox: FunctionComponent<TeaBoxProps> = ({ tea }) => {
   const { name, brand, temperature, time, id } = tea;
   return (
-    <Link to={`/tea/${id}`}>
+    <Link to={`/tea/${id}`} aria-label={`Page of tea: ${name} ${brand}`}>
       <div style={teaBox}>
         <h2 style={teaBoxName}>{ name }</h2>
         <div style={teaBoxBrand}>{ brand }</div>
