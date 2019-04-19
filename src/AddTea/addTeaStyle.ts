@@ -1,21 +1,58 @@
 import { CSSProperties } from 'react';
+import { Orientation } from 'src/types/Orientation';
 
-export const wrapperStyle: CSSProperties = {
-  height: '90%',
-  marginLeft: '10px',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-around',
-  alignItems: 'center',
+export const wrapperStyle = (orientation: Orientation): CSSProperties => {
+  if (orientation === 'portrait') {
+    return {
+      height: '90%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+    };
+  }
+
+  return {};
 }
 
-export const inputWrapperStyle: CSSProperties = {
-  marginBottom: '20px',
+export const formStyle = (orientation: Orientation): CSSProperties => {
+  if (orientation === 'portrait') {
+    return {
+      display: 'flex',
+      flexDirection: 'column',
+    };
+  }
+
+  return {
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: '20px',
+    marginLeft: '20px',
+  }
 }
 
-export const formStyle: CSSProperties = {
-  display: 'flex',
-  flexDirection: 'column',
+export const landscapeWrapper = (orientation: Orientation): CSSProperties => {
+  if (orientation === 'portrait') {
+    return {};
+  }
+
+  return {
+    display: 'flex',
+    flexDirection: 'row',
+  };
+}
+
+export const inputWrapperStyle = (orientation: Orientation): CSSProperties => {
+  if (orientation === 'portrait') {
+    return {
+      marginBottom: '20px',
+    };
+  }
+
+  return {
+    marginBottom: '20px',
+    flex: 1,
+  };
 }
 
 export const inputStyle: CSSProperties = {

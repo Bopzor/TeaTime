@@ -9,6 +9,7 @@ import { AddTeaButtonWithRouter } from './AddTea/AddTeaButton';
 import { Provider } from './OrientationContext';
 
 import { Tea } from './types/Tea';
+import { Orientation } from './types/Orientation';
 import { appStyle } from './appStyle';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -19,7 +20,7 @@ library.add(faPlus, faRedo, faSearch, faPlay, faPause, faTimes);
 const App = () => {
   const [teas, setTeas] = useState<Tea[]>([]);
   const [queryResults, setQueryResults] = useState<Tea[]>([]);
-  const [orientation, setOrientation] = useState('portrait');
+  const [orientation, setOrientation] = useState<Orientation>();
 
   useEffect(() => {
     const fetchedTeas = localStorage.getItem('teas');
