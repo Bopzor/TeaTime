@@ -78,7 +78,7 @@ export const Timer: FunctionComponent<TimerProps> = ({ time, incrementTeaCount }
       }
 
       { alarm &&
-        <audio src="/ding.m4a" autoPlay={true}>
+        <audio src="/fini.mp3" autoPlay={true}>
           Your browser does not support the <code>audio</code> element.
         </audio>
       }
