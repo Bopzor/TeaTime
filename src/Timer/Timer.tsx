@@ -1,10 +1,11 @@
 import React, { FunctionComponent, useState, useEffect, useContext } from 'react';
 import moment from 'moment';
 import { formatSecondsToMinutesAndSeconds } from 'src/utils';
-import { timeStyle, timerWrapper, controlStyle, timerWrapperLandscape } from './timerStyle';
+import { timeStyle, timerWrapper, controlStyle } from './timerStyle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { OrientationContext } from '../OrientationContext';
+import { Orientation } from 'src/types/Orientation';
 
 type TimerProps = {
   time: moment.Duration,
@@ -14,7 +15,6 @@ type TimerProps = {
 const useTimer = (initialTime: number) => {
   const [time, setTime] = useState(initialTime);
   const [started, setStarted] = useState(false);
-  const orientation = useContext(OrientationContext);
 
   useEffect((): any => {
     if (started && time > 0) {
@@ -41,6 +41,7 @@ export const Timer: FunctionComponent<TimerProps> = ({ time, incrementTeaCount }
   const [started, setStarted] = useState(false);
   const [alarm, setAlarm] = useState(false);
   const { time: currentTime, toggle: toggleTimer, reset: resetTimer } = useTimer(time.asSeconds());
+  const orientation: Orientation = useContext(OrientationContext);
 
   useEffect(() => {
     if (started && currentTime <= 0) {
@@ -61,7 +62,7 @@ export const Timer: FunctionComponent<TimerProps> = ({ time, incrementTeaCount }
   };
 
   return (
-    <div style={orientation === 'portrait' ? timerWrapper : timerWrapperLandscape}>
+    <div style={timerWrapper(orientation)}>
       <div style={timeStyle}>{ formatSecondsToMinutesAndSeconds(currentTime) }</div>
 
       { currentTime > 0

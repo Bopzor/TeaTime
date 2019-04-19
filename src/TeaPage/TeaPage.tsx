@@ -5,7 +5,6 @@ import { OrientationContext } from '../OrientationContext';
 
 import {
   teaPageWrapper,
-  teaPageWrapperLandscape,
   teaPageName,
   teaPageBrand,
   teaPageNameWrapper,
@@ -15,6 +14,7 @@ import {
 import { Timer } from '../Timer/Timer';
 
 import { Tea } from '../types/Tea';
+import { Orientation } from 'src/types/Orientation';
 
 type TeaPageProps = {
   tea: Tea;
@@ -22,11 +22,11 @@ type TeaPageProps = {
 };
 
 export const TeaPage: FunctionComponent<TeaPageProps> = ({ tea, incrementTeaCount }) => {
-  const orientation = useContext(OrientationContext);
+  const orientation: Orientation = useContext(OrientationContext);
   const { name, brand, temperature, time } = tea;
 
   return (
-    <div style={orientation === 'portrait' ? teaPageWrapper : teaPageWrapperLandscape} >
+    <div style={teaPageWrapper(orientation)} >
 
       <div style={teaPageInfoWrapper}>
         <div style={teaPageNameWrapper}>

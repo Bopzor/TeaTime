@@ -1,17 +1,22 @@
 import { CSSProperties } from 'react';
+import { Orientation } from '../types/Orientation';
 
-export const teaPageWrapper: CSSProperties = {
-  flex: 1,
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems:'center',
-  justifyContent: 'space-between',
-}
+export const teaPageWrapper = (orientation: Orientation): CSSProperties => {
+  if (orientation === 'portrait') {
+    return {
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems:'center',
+      justifyContent: 'space-between',
+    }
+  }
 
-export const teaPageWrapperLandscape: CSSProperties = {
-  flex: 1,
-  display: 'flex',
-  flexDirection: 'row',
+  return {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'row',
+  }
 }
 
 export const teaPageInfoWrapper: CSSProperties = {
