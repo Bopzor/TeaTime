@@ -20,7 +20,7 @@ library.add(faPlus, faRedo, faSearch, faPlay, faPause, faTimes);
 const App = () => {
   const [teas, setTeas] = useState<Tea[]>([]);
   const [queryResults, setQueryResults] = useState<Tea[]>([]);
-  const [orientation, setOrientation] = useState<Orientation>();
+  const [orientation, setOrientation] = useState<Orientation>('portrait');
 
   useEffect(() => {
     const fetchedTeas = localStorage.getItem('teas');
