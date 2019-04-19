@@ -8,9 +8,22 @@ export const teaPageWrapper: CSSProperties = {
   justifyContent: 'space-between',
 }
 
+export const teaPageWrapperLandscape: CSSProperties = {
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'row',
+}
+
+export const teaPageInfoWrapper: CSSProperties = {
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-around',
+  textAlign: 'center',
+}
+
 export const teaPageNameWrapper: CSSProperties = {
   flex: 1,
-  textAlign: 'center',
   marginTop: '10px',
 }
 

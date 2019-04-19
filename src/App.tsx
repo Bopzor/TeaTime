@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
+import { HeaderWithRouter } from './Header/Header';
 import { TeasList } from './TeasList/TeasList';
 import { TeaPage } from './TeaPage/TeaPage';
 import { AddTea } from './AddTea/AddTea';
+import { AddTeaButtonWithRouter } from './AddTea/AddTeaButton';
+import { Provider } from './OrientationContext';
 
 import { Tea } from './types/Tea';
-import { HeaderWithRouter } from './Header/Header';
-
 import { appStyle } from './appStyle';
-import { AddTeaButtonWithRouter } from './AddTea/AddTeaButton';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPlus, faRedo, faSearch, faPlay, faPause, faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -19,13 +19,24 @@ library.add(faPlus, faRedo, faSearch, faPlay, faPause, faTimes);
 const App = () => {
   const [teas, setTeas] = useState<Tea[]>([]);
   const [queryResults, setQueryResults] = useState<Tea[]>([]);
+  const [orientation, setOrientation] = useState('portrait');
 
   useEffect(() => {
     const fetchedTeas = localStorage.getItem('teas');
     const teasSorted = parsedTeas(fetchedTeas).sort((a: Tea, b: Tea) => b.count - a.count);
 
     setTeas(teasSorted);
+
+    addEventListener('resize', onScreenResize);
   }, []);
+
+  const onScreenResize = () => {
+    if (innerHeight <= 360) {
+      setOrientation('landscape');
+    } else {
+      setOrientation('portrait');
+    }
+  };
 
   const parsedTeas = (fetchedTeas: string | null) => {
     if (!fetchedTeas)
@@ -78,46 +89,50 @@ const App = () => {
 
   if (queryResults.length > 0) {
     return (
-      <div className='App'>
+      <Provider value={orientation} >
+        <div>
 
-        <HeaderWithRouter searchQuery={(query) => searchQuery(query)} />
+          <HeaderWithRouter searchQuery={(query) => searchQuery(query)} />
 
-        <TeasList teas={queryResults} />
+          <TeasList teas={queryResults} />
 
-        <AddTeaButtonWithRouter />
-      </div>
+          <AddTeaButtonWithRouter />
+        </div>
+      </Provider>
     );
   }
 
   return (
-    <div style={appStyle}>
+    <Provider value={orientation}>
+      <div style={appStyle}>
 
-     <HeaderWithRouter searchQuery={(query) => searchQuery(query)} />
+      <HeaderWithRouter searchQuery={(query) => searchQuery(query)} />
 
-      <Switch>
-        <Route exact path='/tea/add'
-          render={
-            (props) => <AddTea handleAddTea={(tea: Tea) => addTeaToLocalStorage(tea)} />
-          }
-        />
-
-        { teas.length > 0 &&
-          <Route path='/tea/:id'
+        <Switch>
+          <Route exact path='/tea/add'
             render={
-              (props) => <TeaPage
-                tea={findTea(props.match.params.id)}
-                incrementTeaCount={(tea) => incrementTeaCount(tea)}
-              />
+              (props) => <AddTea handleAddTea={(tea: Tea) => addTeaToLocalStorage(tea)} />
             }
-        /> }
+          />
 
-        { teas.length > 0 && <Route path='/' render={(props) => <TeasList teas={teas} />} /> }
+          { teas.length > 0 &&
+            <Route path='/tea/:id'
+              render={
+                (props) => <TeaPage
+                  tea={findTea(props.match.params.id)}
+                  incrementTeaCount={(tea) => incrementTeaCount(tea)}
+                />
+              }
+          /> }
 
-      </Switch>
+          { teas.length > 0 && <Route path='/' render={(props) => <TeasList teas={teas} />} /> }
 
-      <AddTeaButtonWithRouter />
+        </Switch>
 
-    </div>
+        <AddTeaButtonWithRouter />
+
+      </div>
+    </Provider>
   );
 }
 

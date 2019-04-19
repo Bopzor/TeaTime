@@ -5,6 +5,15 @@ export const timerWrapper: CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  justifyContent: 'space-evenly',
+}
+
+export const timerWrapperLandscape: CSSProperties = {
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'space-evenly',
 }
 
 export const timeStyle: CSSProperties = {
@@ -13,6 +22,5 @@ export const timeStyle: CSSProperties = {
 }
 
 export const controlStyle: CSSProperties = {
-  position: 'absolute',
-  bottom: '100px',
+
 }
