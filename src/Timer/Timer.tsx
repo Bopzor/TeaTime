@@ -59,7 +59,11 @@ export const Timer: FunctionComponent<TimerProps> = ({ time, incrementTeaCount }
 
     toggleTimer();
     setStarted(!started);
-  };
+  }
+
+  const stopAlarm = () => {
+    setAlarm(false);
+  }
 
   return (
     <div style={timerWrapper(orientation)}>
@@ -74,15 +78,22 @@ export const Timer: FunctionComponent<TimerProps> = ({ time, incrementTeaCount }
             }
           </div>
         )
-        : (
-          <div style={controlStyle} onClick={resetTimer}>
-            <FontAwesomeIcon icon="redo" size="3x" />
-          </div>
+        : ( alarm
+          ? (
+            <div style={controlStyle} onClick={stopAlarm}>
+              <FontAwesomeIcon icon="stop" size="3x" />
+            </div>
+          )
+          : (
+            <div style={controlStyle} onClick={resetTimer}>
+              <FontAwesomeIcon icon="redo" size="3x" />
+            </div>
+          )
         )
       }
 
       { alarm &&
-        <audio src="/fini.mp3" autoPlay={true}>
+        <audio src="/fini.mp3" autoPlay={true} loop>
           Your browser does not support the <code>audio</code> element.
         </audio>
       }
