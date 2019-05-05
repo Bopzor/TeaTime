@@ -13,9 +13,9 @@ import { Orientation } from './types/Orientation';
 import { appStyle } from './appStyle';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faPlus, faRedo, faSearch, faPlay, faPause, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faRedo, faSearch, faPlay, faPause, faTimes, faStop } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faPlus, faRedo, faSearch, faPlay, faPause, faTimes);
+library.add(faPlus, faRedo, faSearch, faPlay, faPause, faTimes, faStop);
 
 const App = () => {
   const [teas, setTeas] = useState<Tea[]>([]);
