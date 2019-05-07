@@ -1,11 +1,11 @@
 import React, { FunctionComponent, useState, useEffect, useContext } from 'react';
 import moment from 'moment';
-import { formatSecondsToMinutesAndSeconds } from 'src/utils';
+import { formatSecondsToMinutesAndSeconds } from '../utils';
 import { timeStyle, timerWrapper, controlStyle } from './timerStyle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { OrientationContext } from '../OrientationContext';
-import { Orientation } from 'src/types/Orientation';
+import { Orientation } from '../types/Orientation';
 
 type TimerProps = {
   time: moment.Duration,
