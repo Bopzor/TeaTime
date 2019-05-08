@@ -1,11 +1,13 @@
-import React, { FunctionComponent, useState, useEffect, useContext } from 'react';
+import React, { FunctionComponent, useState, useEffect, useContext, useRef } from 'react';
 import moment from 'moment';
-import { formatSecondsToMinutesAndSeconds } from 'src/utils';
+import { formatSecondsToMinutesAndSeconds } from '../utils';
 import { timeStyle, timerWrapper, controlStyle } from './timerStyle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { OrientationContext } from '../OrientationContext';
-import { Orientation } from 'src/types/Orientation';
+import { Orientation } from '../types/Orientation';
+import worker from '../worker';
+import webWorker from '../workerSetup';
 
 type TimerProps = {
   time: moment.Duration,
@@ -15,16 +17,26 @@ type TimerProps = {
 const useTimer = (initialTime: number) => {
   const [time, setTime] = useState(initialTime);
   const [started, setStarted] = useState(false);
+  const myWorkerRef = useRef<Worker>();
 
-  useEffect((): any => {
-    if (started && time > 0) {
-      const id = setTimeout(() => {
-        setTime(time - 1);
-      }, 1000);
+  useEffect(() => {
+    const myWorker = myWorkerRef.current = webWorker(worker);
+    myWorker.postMessage({ type: 'SET_DURATION', duration: initialTime });
 
-      return () => clearTimeout(id);
+    function listener(e: MessageEvent) {
+      if (e.data.type === 'DURATION') {
+        setTime(parseInt(e.data.duration));
+
+      } else {
+        return;
+      }
     }
-  }, [time, started]);
+
+    myWorker.addEventListener('message', listener);
+    myWorker.postMessage({ type: 'CHANGE_STATUS', started });
+
+    return () => myWorker.removeEventListener('message', listener);
+  }, [started]);
 
   return {
     time,
