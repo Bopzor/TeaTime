@@ -25,3 +25,5 @@ yarn-error.log*
 tea-time.conf
 
 public/robots.txt
+
+logs/
