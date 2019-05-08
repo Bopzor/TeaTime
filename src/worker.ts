@@ -11,7 +11,7 @@ const worker = () => {
   let timerId: number | undefined = undefined;
 
   const startTimer = (): number => {
-    return window.setInterval(() => {
+    return <any>setInterval(() => {
       if(duration > 0) {
           --duration;
           ctxWorker.postMessage({ type: 'DURATION', duration });
