@@ -7,6 +7,7 @@ import { TeaPage } from './TeaPage/TeaPage';
 import { AddTea } from './AddTea/AddTea';
 import { AddTeaButtonWithRouter } from './AddTea/AddTeaButton';
 import { Provider } from './OrientationContext';
+import { Welcome } from './Welcome/Welcome';
 
 import { Tea } from './types/Tea';
 import { Orientation } from './types/Orientation';
@@ -28,11 +29,11 @@ const App = () => {
 
     setTeas(teasSorted);
 
-    addEventListener('resize', onScreenResize);
+    window.addEventListener('resize', onScreenResize);
   }, []);
 
   const onScreenResize = () => {
-    if (innerHeight <= 360) {
+    if (window.innerHeight <= 360) {
       setOrientation('landscape');
     } else {
       setOrientation('portrait');
@@ -124,7 +125,10 @@ const App = () => {
                   incrementTeaCount={(tea) => incrementTeaCount(tea)}
                 />
               }
-          /> }
+            />
+          }
+
+          { teas.length <= 0 && <Welcome /> }
 
           { teas.length > 0 && <Route path='/' render={(props) => <TeasList teas={teas} />} /> }
 
