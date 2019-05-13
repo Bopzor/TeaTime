@@ -45,3 +45,14 @@ export const teaPageTemperature: CSSProperties = {
   flex: 1,
   fontSize: '2.5em',
 }
+
+export const editButtonTeaStyle: CSSProperties = {
+  borderRadius: '50%',
+  backgroundColor: '#ccc',
+  textAlign: 'center',
+  padding: '10px',
+  cursor: 'pointer',
+  position: 'fixed',
+  left: '20px',
+  bottom: '25px',
+}

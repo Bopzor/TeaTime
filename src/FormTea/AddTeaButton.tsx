@@ -4,7 +4,7 @@ import { Location, History } from 'history';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { addButtonTeaStyle } from './addTeaStyle';
+import { addButtonTeaStyle } from './formTeaStyle';
 
 type AddTeaButtonProps = {
   location: Location<any>;

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, FormEvent, useContext } from 'react';
+import React, { FunctionComponent, useState, FormEvent, useContext, useEffect } from 'react';
 import slugify from 'slugify';
 
 import { OrientationContext } from '../OrientationContext';
@@ -14,21 +14,37 @@ import {
   timeSeparatorStyle,
   formStyle,
   landscapeWrapper,
-} from './addTeaStyle';
+} from './formTeaStyle';
 import { Tea } from 'src/types/Tea';
 import { Redirect } from 'react-router';
 
-type AddTeaProps = {
-  handleAddTea: (tea: Tea) => void;
-}
+type FormTeaProps = {
+  currentTea?: Tea;
+  handleSubmitTea: (tea: Tea) => void;
+};
 
-export const AddTea: FunctionComponent<AddTeaProps> = ({ handleAddTea }) => {
-  const [name, setName] = useState('');
-  const [brand, setBrand] = useState('');
-  const [temperature, setTemperature] = useState('');
-  const [time, setTime] = useState<{ minutes: string, seconds: string }>({ minutes: '', seconds: '' });
+export const FormTea: FunctionComponent<FormTeaProps> = ({ currentTea, handleSubmitTea }) => {
+  const [name, setName] = useState(currentTea ? currentTea.name : '');
+  const [brand, setBrand] = useState(currentTea ? currentTea.brand : '');
+  const [temperature, setTemperature] = useState(currentTea ? currentTea.temperature.toString() : '');
+  const [time, setTime] = useState<{ minutes: string; seconds: string }>({
+    minutes: currentTea ? currentTea.time.minutes.toString() : '',
+    seconds: currentTea ? currentTea.time.seconds.toString() : '',
+  });
   const [redirectPath, setRedirectPath] = useState<string | null>(null);
   const orientation = useContext(OrientationContext);
+
+  useEffect(() => {
+    if (!currentTea)
+      resetForm();
+  }, [currentTea]);
+
+  const resetForm = () => {
+    setName('');
+    setBrand('');
+    setTemperature('');
+    setTime({ minutes: '', seconds: '' });
+  };
 
   const addTea = (event: FormEvent) => {
     event.preventDefault();
@@ -42,25 +58,46 @@ export const AddTea: FunctionComponent<AddTeaProps> = ({ handleAddTea }) => {
         seconds: parseInt(time.seconds, 10),
       },
       count: 0,
-      id: slugify(`${name}${brand}`),
+      id: slugify(`${name.toLocaleLowerCase()}${brand.toLocaleLowerCase()}`),
+    };
+
+    handleSubmitTea(tea);
+
+    setRedirectPath(`/tea/${tea.id}`);
+  };
+
+  const updateTea = (event: FormEvent) => {
+    event.preventDefault();
+
+    if (!currentTea) return;
+
+    const tea: Tea = {
+      ...currentTea,
+      name,
+      brand,
+      temperature: parseInt(temperature, 10),
+      time: {
+        minutes: parseInt(time.minutes, 10),
+        seconds: parseInt(time.seconds, 10),
+      },
     }
 
-    handleAddTea(tea);
+    handleSubmitTea(tea);
 
     setRedirectPath(`/tea/${tea.id}`);
   };
 
   if (redirectPath !== null) {
-    return <Redirect to={redirectPath} />
+    return <Redirect to={redirectPath} />;
   }
 
   return (
-    <div style={{height: '100%'}}>
-
+    <div style={{ height: '100%' }}>
       <div style={wrapperStyle(orientation)}>
-
-        <form style={formStyle(orientation)} onSubmit={(e) => addTea(e)}>
-
+        <form
+          style={formStyle(orientation)}
+          onSubmit={currentTea ? (e) => updateTea(e) : (e) => addTea(e)}
+        >
           <div style={landscapeWrapper(orientation)}>
             <div style={inputWrapperStyle(orientation)}>
               <label style={labelStyle}>Nom: </label>
@@ -111,8 +148,8 @@ export const AddTea: FunctionComponent<AddTeaProps> = ({ handleAddTea }) => {
                 value={time.minutes}
                 required={true}
                 onChange={(e) => setTime({ ...time, minutes: e.target.value })}
-                />
-              <div style={timeSeparatorStyle} >:</div>
+              />
+              <div style={timeSeparatorStyle}>:</div>
               <input
                 style={inputSecondsStyle}
                 type="number"
@@ -125,10 +162,8 @@ export const AddTea: FunctionComponent<AddTeaProps> = ({ handleAddTea }) => {
             </div>
           </div>
 
-
-          <input style={submitButtonStyle} type="submit" value="Ajouter" />
+          <input style={submitButtonStyle} type="submit" value={currentTea ? 'Modifier' : 'Ajouter'} />
         </form>
-
       </div>
     </div>
   );
