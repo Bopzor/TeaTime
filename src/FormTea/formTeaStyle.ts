@@ -68,28 +68,22 @@ export const labelStyle: CSSProperties = {
 
 export const inputMinutesStyle: CSSProperties = {
   padding: '5px',
-  borderRadius: '3px',
-  border: '1px solid #00000033',
+  border: 'none',
   borderRight: 'none',
-  borderTopRightRadius: 0,
-  borderBottomRightRadius: 0,
   textAlign: 'center',
 }
 
 export const inputSecondsStyle: CSSProperties = {
   padding: '5px',
-  borderRadius: '3px',
-  border: '1px solid #00000033',
+  border: 'none',
   borderLeft: 'none',
-  borderTopLeftRadius: 0,
-  borderBottomLeftRadius: 0,
   textAlign: 'center',
 }
 
 export const timeSeparatorStyle: CSSProperties = {
+  fontSize: '16px',
+  fontWeight: 'bold',
   display: 'inline-block',
-  borderTop: '1px solid #00000033',
-  borderBottom: '1px solid #00000033',
   color: "#00000033",
   paddingTop: '4px',
   paddingBottom: '5px',
@@ -120,3 +114,9 @@ export const addButtonTeaStyle: CSSProperties = {
   right: '20px',
   bottom: '20px',
 }
+
+export const timeInputWrapper: CSSProperties = {
+  border: '1px solid #ccc',
+  borderRadius: '3px',
+  width: '132px',
+};

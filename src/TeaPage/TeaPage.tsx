@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { OrientationContext } from '../OrientationContext';
+import { OrientationContext } from '../Contexts/OrientationContext';
 
 import {
   teaPageWrapper,

@@ -4,7 +4,7 @@ import { formatSecondsToMinutesAndSeconds } from '../utils';
 import { timeStyle, timerWrapper, controlStyle } from './timerStyle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { OrientationContext } from '../OrientationContext';
+import { OrientationContext } from '../Contexts/OrientationContext';
 import { Orientation } from '../types/Orientation';
 
 import worker from '../worker';

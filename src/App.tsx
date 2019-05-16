@@ -6,7 +6,7 @@ import { TeasList } from './TeasList/TeasList';
 import { TeaPage } from './TeaPage/TeaPage';
 import { FormTea } from './FormTea/FormTea';
 import { AddTeaButtonWithRouter } from './FormTea/AddTeaButton';
-import { Provider } from './OrientationContext';
+import { Provider } from './Contexts/OrientationContext';
 import { Welcome } from './Welcome/Welcome';
 
 import { Tea } from './types/Tea';

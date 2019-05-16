@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState, FormEvent, useContext, useEffect } from 'react';
 import slugify from 'slugify';
 
-import { OrientationContext } from '../OrientationContext';
+import { OrientationContext } from '../Contexts/OrientationContext';
 
 import {
   wrapperStyle,
@@ -14,6 +14,7 @@ import {
   timeSeparatorStyle,
   formStyle,
   landscapeWrapper,
+  timeInputWrapper,
 } from './formTeaStyle';
 import { Tea } from 'src/types/Tea';
 import { Redirect } from 'react-router';
@@ -140,25 +141,29 @@ export const FormTea: FunctionComponent<FormTeaProps> = ({ currentTea, handleSub
 
             <div style={inputWrapperStyle(orientation)}>
               <label style={labelStyle}>Durée: </label>
-              <input
-                style={inputMinutesStyle}
-                type="number"
-                min={0}
-                max={59}
-                value={time.minutes}
-                required={true}
-                onChange={(e) => setTime({ ...time, minutes: e.target.value })}
-              />
-              <div style={timeSeparatorStyle}>:</div>
-              <input
-                style={inputSecondsStyle}
-                type="number"
-                min={0}
-                max={59}
-                value={time.seconds}
-                required={true}
-                onChange={(e) => setTime({ ...time, seconds: e.target.value })}
-              />
+
+              <div style={timeInputWrapper}>
+                <input
+                  style={inputMinutesStyle}
+                  type="number"
+                  min={0}
+                  max={59}
+                  value={time.minutes}
+                  required={true}
+                  onChange={(e) => setTime({ ...time, minutes: e.target.value })}
+                />
+                <div style={timeSeparatorStyle}>:</div>
+                <input
+                  style={inputSecondsStyle}
+                  type="number"
+                  min={0}
+                  max={59}
+                  value={time.seconds}
+                  required={true}
+                  onChange={(e) => setTime({ ...time, seconds: e.target.value })}
+                />
+              </div>
+
             </div>
           </div>
 
