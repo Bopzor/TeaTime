@@ -27,3 +27,7 @@ tea-time.conf
 public/robots.txt
 
 logs/
+
+www/
+platforms/
+plugins/

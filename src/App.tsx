@@ -23,9 +23,10 @@ import {
   faTimes,
   faStop,
   faPen,
+  faDownload,
 } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faPlus, faRedo, faSearch, faPlay, faPause, faTimes, faStop, faPen);
+library.add(faPlus, faRedo, faSearch, faPlay, faPause, faTimes, faStop, faPen, faDownload);
 
 const App = () => {
   const [teas, setTeas] = useState<Tea[]>([]);
